@@ -29,8 +29,8 @@ LOCAL="${RSYNC_SRC}/"
 echo "Search for ${RSYNC_SRC}/.rsyncrestorefirst"
 if [[ -f "${RSYNC_SRC}/.rsyncrestorefirst" ]]
 then
-  eval " sshpass -p \"${RSYNC_PASS}\" rsync -a ${IGNORE_FLAG} ${RSYNC_FLAGS} ${SSH_COMMAND} ${REMOTE} ${LOCAL}"
-  rm ${RSYNC_SRC}/.restorefirst 
+  echo " sshpass -p \"${RSYNC_PASS}\" rsync -a ${IGNORE_FLAG} ${RSYNC_FLAGS} ${SSH_COMMAND} ${REMOTE} ${LOCAL}"
+  # rm ${RSYNC_SRC}/.rsyncrestorefirst 
 fi
 
 PUBLIC_CMD="rsync -a ${IGNORE_FLAG} ${RSYNC_FLAGS} ${SSH_COMMAND} ${LOCAL} ${REMOTE}"
