@@ -1,0 +1,6 @@
+# Gimme a good shell
+SHELL=/bin/bash
+
+@reboot /scripts/launch-rsync.sh > /proc/1/fd/1 2>/proc/1/fd/2
+0 4 * * * /scripts/launch-rsync.sh > /proc/1/fd/1 2>/proc/1/fd/2
+# Empty line needed
