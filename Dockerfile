@@ -2,6 +2,8 @@ FROM debian:buster-slim
 
 ENV SSH=false
 ENV RSYNC_FLAGS=-av
+ENV RSYNC_SRC=/mount/source
+
 
 RUN set -ex && \
     # Create user 1000

@@ -26,6 +26,7 @@ fi
 REMOTE="${RSYNC_USER}@${RSYNC_HOST}:${RSYNC_TARGET}/"
 LOCAL="${RSYNC_SRC}/"
 
+echo "Search for ${RSYNC_SRC}/.rsyncrestorefirst"
 if [[ -f "${RSYNC_SRC}/.rsyncrestorefirst" ]]
 then
   echo " sshpass -p \"${RSYNC_PASS}\" rsync -a ${IGNORE_FLAG} ${RSYNC_FLAGS} ${SSH_COMMAND} ${REMOTE} ${LOCAL}"
