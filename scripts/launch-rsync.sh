@@ -4,6 +4,7 @@
 echo "RSync ${RSYNC_SRC} to ${RSYNC_HOST}:${RSYNC_TARGET}"
 
 SSH_COMMAND=
+RSYNC_DELETE=
 
 if [[ "$RSYNC_SSH" = "true" ]] || [[ "$RSYNC_SSH" = "yes" ]]
 then
@@ -26,14 +27,19 @@ fi
 REMOTE="${RSYNC_USER}@${RSYNC_HOST}:${RSYNC_TARGET}/"
 LOCAL="${RSYNC_SRC}/"
 
-echo "Search for ${RSYNC_SRC}/.rsyncrestorefirst"
-if [[ -f "${RSYNC_SRC}/.rsyncrestorefirst" ]]
+echo "Search for ${RSYNC_SRC}/.rsyncrestore"
+if [[ -f "${RSYNC_SRC}/.rsyncrestore" ]]
 then
   eval " sshpass -p \"${RSYNC_PASS}\" rsync -a ${IGNORE_FLAG} ${RSYNC_FLAGS} ${SSH_COMMAND} ${REMOTE} ${LOCAL}"
-  # rm ${RSYNC_SRC}/.rsyncrestorefirst 
+  mv ${RSYNC_SRC}/.rsyncrestorefirst ${RSYNC_SRC}/.rsynced
 fi
 
-PUBLIC_CMD="rsync -a ${IGNORE_FLAG} ${RSYNC_FLAGS} ${SSH_COMMAND} ${LOCAL} ${REMOTE}"
+if [[ -f "${RSYNC_SRC}/.rsynced" ]]
+then
+  RSYNC_DELETE=" --delete"
+fi
+
+PUBLIC_CMD="rsync -a ${IGNORE_FLAG} ${RSYNC_FLAGS} ${RSYNC_DELETE} ${SSH_COMMAND} ${LOCAL} ${REMOTE}"
 FULL_CMD=" sshpass -p \"${RSYNC_PASS}\" ${PUBLIC_CMD}"
 
 # while IFS='=' read -r name value ; do
@@ -70,4 +76,4 @@ FULL_CMD=" sshpass -p \"${RSYNC_PASS}\" ${PUBLIC_CMD}"
 # done < <(env|sort -h)
 
 echo $PUBLIC_CMD
-echo $FULL_CMD
+eval $FULL_CMD
