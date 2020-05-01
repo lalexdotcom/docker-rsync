@@ -23,7 +23,16 @@ then
   IGNORE_FLAG="--exclude-from='${RSYNC_SRC}/.rsyncignore'"
 fi
 
-PUBLIC_CMD="rsync -a ${IGNORE_FLAG} ${RSYNC_FLAGS} ${SSH_COMMAND} ${RSYNC_SRC}/ ${RSYNC_USER}@${RSYNC_HOST}:${RSYNC_TARGET}"
+REMOTE="${RSYNC_USER}@${RSYNC_HOST}:${RSYNC_TARGET}/"
+LOCAL="${RSYNC_SRC}/"
+
+if [[ -f "${RSYNC_SRC}/.rsyncrestorefirst"]]
+  echo " sshpass -p \"${RSYNC_PASS}\" rsync -a ${IGNORE_FLAG} ${RSYNC_FLAGS} ${SSH_COMMAND} ${REMOTE} ${LOCAL}"
+  rm ${RSYNC_SRC}/.restorefirst
+then
+fi
+
+PUBLIC_CMD="rsync -a ${IGNORE_FLAG} ${RSYNC_FLAGS} ${SSH_COMMAND} ${LOCAL} ${REMOTE}"
 FULL_CMD=" sshpass -p \"${RSYNC_PASS}\" ${PUBLIC_CMD}"
 
 # while IFS='=' read -r name value ; do
