@@ -70,4 +70,4 @@ FULL_CMD=" sshpass -p \"${RSYNC_PASS}\" ${PUBLIC_CMD}"
 # done < <(env|sort -h)
 
 echo $PUBLIC_CMD
-eval $FULL_CMD
+echo $FULL_CMD
