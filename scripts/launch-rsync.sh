@@ -29,7 +29,7 @@ LOCAL="${RSYNC_SRC}/"
 if [[ -f "${RSYNC_SRC}/.rsyncrestorefirst" ]]
 then
   echo " sshpass -p \"${RSYNC_PASS}\" rsync -a ${IGNORE_FLAG} ${RSYNC_FLAGS} ${SSH_COMMAND} ${REMOTE} ${LOCAL}"
-  rm ${RSYNC_SRC}/.restorefirst 
+  # rm ${RSYNC_SRC}/.restorefirst 
 fi
 
 PUBLIC_CMD="rsync -a ${IGNORE_FLAG} ${RSYNC_FLAGS} ${SSH_COMMAND} ${LOCAL} ${REMOTE}"
@@ -69,4 +69,4 @@ FULL_CMD=" sshpass -p \"${RSYNC_PASS}\" ${PUBLIC_CMD}"
 # done < <(env|sort -h)
 
 echo $PUBLIC_CMD
-eval $FULL_CMD
+# eval $FULL_CMD
