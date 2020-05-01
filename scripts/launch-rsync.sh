@@ -27,9 +27,9 @@ REMOTE="${RSYNC_USER}@${RSYNC_HOST}:${RSYNC_TARGET}/"
 LOCAL="${RSYNC_SRC}/"
 
 if [[ -f "${RSYNC_SRC}/.rsyncrestorefirst"]]
-  echo " sshpass -p \"${RSYNC_PASS}\" rsync -a ${IGNORE_FLAG} ${RSYNC_FLAGS} ${SSH_COMMAND} ${REMOTE} ${LOCAL}"
-  rm ${RSYNC_SRC}/.restorefirst
 then
+  echo " sshpass -p \"${RSYNC_PASS}\" rsync -a ${IGNORE_FLAG} ${RSYNC_FLAGS} ${SSH_COMMAND} ${REMOTE} ${LOCAL}"
+  rm ${RSYNC_SRC}/.restorefirst 
 fi
 
 PUBLIC_CMD="rsync -a ${IGNORE_FLAG} ${RSYNC_FLAGS} ${SSH_COMMAND} ${LOCAL} ${REMOTE}"
