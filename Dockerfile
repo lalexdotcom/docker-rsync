@@ -1,7 +1,7 @@
 FROM debian:buster-slim
 
-ENV SSH=false
-ENV RSYNC_FLAGS=-av
+ENV RSYNC_SSH=false
+ENV RSYNC_FLAGS=
 ENV RSYNC_SRC=/mount/source
 
 ENV USER_ID=1000
