@@ -30,14 +30,14 @@ echo "Search for ${RSYNC_SRC}/.rsynced"
 if [[ ! -f "${RSYNC_SRC}/.rsynced" ]]
 then
   echo "Not synced. Perfom restore form ${REMOTE}"
-  eval " sshpass -p \"${RSYNC_PASS}\" rsync -a --chown ${USER_ID}:${GROUP_ID} ${IGNORE_FLAG} ${RSYNC_FLAGS} ${SSH_COMMAND} ${REMOTE} ${LOCAL}"
+  eval " sshpass -p \"${RSYNC_PASS}\" rsync -av --chown ${USER_ID}:${GROUP_ID} ${IGNORE_FLAG} ${RSYNC_FLAGS} ${SSH_COMMAND} ${REMOTE} ${LOCAL}"
   touch ${RSYNC_SRC}/.rsynced
   chown ${USER_ID}:${GROUP_ID} ${RSYNC_SRC}/.rsynced
 fi
 
 if [[ -f "${RSYNC_SRC}/.rsynced" ]]
 then
-  PUBLIC_CMD="rsync -a --delete ${IGNORE_FLAG} ${RSYNC_FLAGS} ${SSH_COMMAND} ${LOCAL} ${REMOTE}"
+  PUBLIC_CMD="rsync -av --delete ${IGNORE_FLAG} ${RSYNC_FLAGS} ${SSH_COMMAND} ${LOCAL} ${REMOTE}"
   FULL_CMD=" sshpass -p \"${RSYNC_PASS}\" ${PUBLIC_CMD}"
   echo "Sync to ${REMOTE}"
   eval $FULL_CMD
