@@ -27,11 +27,13 @@ fi
 REMOTE="${RSYNC_USER}@${RSYNC_HOST}:${RSYNC_TARGET}/"
 LOCAL="${RSYNC_SRC}/"
 
-echo "Search for ${RSYNC_SRC}/.rsyncrestore"
-if [[ -f "${RSYNC_SRC}/.rsyncrestore" ]]
+echo "Search for ${RSYNC_SRC}/.rsynced"
+if [[ ! -f "${RSYNC_SRC}/.rsynced" ]]
 then
+  echo "Not synced. Perfom restore form ${REMOTE}"
   eval " sshpass -p \"${RSYNC_PASS}\" rsync -a ${IGNORE_FLAG} ${RSYNC_FLAGS} ${SSH_COMMAND} ${REMOTE} ${LOCAL}"
-  mv ${RSYNC_SRC}/.rsyncrestorefirst ${RSYNC_SRC}/.rsynced
+  touch ${RSYNC_SRC}/.rsynced
+  chown ${USER_ID}:${GROUP_ID} ${RSYNC_SRC}/.rsynced
 fi
 
 if [[ -f "${RSYNC_SRC}/.rsynced" ]]
